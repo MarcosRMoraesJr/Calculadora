@@ -12,9 +12,7 @@ namespace Calculadoraa
         {
             int num1 = 0;
             int num2 = 0;
-
             int resultado = 0;
-
             int operacao = 0;
 
             do
@@ -26,9 +24,12 @@ namespace Calculadoraa
                 Console.WriteLine("4. Divisão");
                 Console.WriteLine("5. Sair \n");
 
-                operacao = int.Parse(Console.ReadLine()); //Conversor para transformar um número digitado de string para int e armazena
+                if (!int.TryParse(Console.ReadLine(), out operacao)) {
+                    Console.WriteLine("Entrada inválida, por favor insira um número.");
+                    continue;
+                }
 
-                if (operacao >= 1 && operacao <= 5)
+                if (operacao >= 1 && operacao <= 4)
                 {
                 Console.WriteLine("Digite o primeiro numero: ");
                 num1 = int.Parse(Console.ReadLine());
@@ -40,47 +41,46 @@ namespace Calculadoraa
 
                 else
                 {
-                    Console.WriteLine("Escolha inválida. Digite um número válido.");
+                    Console.WriteLine("Escolha inválida. Digite um número válido. \n");
+                }
+
+                switch (operacao)
+                {
+                    case 1:
+                        {
+                            resultado = Adicao(num1, num2);
+                            break;
+                        }
+                    case 2:
+                        {
+                            resultado = Subtracao(num1, num2);
+                            break;
+                        }
+                    case 3:
+                        {
+                            resultado = Multiplicacao(num1, num2);
+                            break;
+                        }
+                    case 4:
+                        {
+                            resultado = Divisao(num1, num2);
+                            break;
+                        }
+                    case 5:
+                        {
+                            Environment.Exit(0);
+                            break;
+                        }
+                    default:
+                        Console.WriteLine("Número inválido, digite outro número \n");
+                        break;
+                }
+                if (operacao >= 1 && operacao <= 4)
+                {
+                    Console.WriteLine("O resultado do calculo com os números {0} e {1} é: {2} \n", num1, num2, resultado);
                 }
             }
             while (operacao >=1 || operacao <= 5);
-
-            switch (operacao)
-            {
-                case 1:
-                    {
-                        resultado = Adicao(num1, num2);
-                        break;
-                    }
-                case 2:
-                    {
-                        resultado = Subtracao(num1, num2);
-                        break;
-                    }
-                case 3:
-                    {
-                        resultado = Multiplicacao(num1, num2);
-                        break;
-                    }
-                case 4:
-                    {
-                        resultado = Divisao(num1, num2);
-                        break;
-                    }
-                default:
-                    Console.WriteLine("Número inválido, digite outro número");
-                    break;
-            }
-            if (operacao >= 1 && operacao <= 4)
-            {
-                Console.WriteLine("O resultado do calculo com os números {0} e {1} é: {2}",num1,num2,resultado);
-                Console.ReadLine();
-            }
-            else
-            {
-                Console.ReadLine();
-                return;
-            }
         }
 
         public static int Adicao (int numero1, int numero2) 
